@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.repository;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.Coupon;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,3 +13,4 @@ public interface CouponRepository extends JpaRepository<Coupon, Long> {
 
     List<Coupon> findByCommunityIdAndIsActiveTrueOrderByCreatedAtDesc(Long communityId);
 }
+

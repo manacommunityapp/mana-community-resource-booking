@@ -1,7 +1,8 @@
 package com.manacommunity.api.booking.entity;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.enums.PricingType;
-import com.manacommunity.api.model.Community;
+import com.manacommunity.common.model.Community;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -88,3 +89,5 @@ public class PricingRule {
         updatedAt = LocalDateTime.now();
     }
 }
+
+

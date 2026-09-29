@@ -1,5 +1,6 @@
 package com.manacommunity.api.exception;
 
+import com.manacommunity.common.enums.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
@@ -50,3 +51,4 @@ public class ErrorResponse {
         private final String message;
     }
 }
+

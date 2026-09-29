@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.dto;
 
+import com.manacommunity.common.enums.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -18,3 +19,4 @@ public class WaitlistRequest {
     @NotNull
     private String requestedEndTime;
 }
+

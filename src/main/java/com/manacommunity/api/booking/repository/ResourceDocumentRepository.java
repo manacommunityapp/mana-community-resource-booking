@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.repository;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.ResourceDocument;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,3 +10,4 @@ public interface ResourceDocumentRepository extends JpaRepository<ResourceDocume
 
     List<ResourceDocument> findByResourceIdOrderByCreatedAtDesc(Long resourceId);
 }
+

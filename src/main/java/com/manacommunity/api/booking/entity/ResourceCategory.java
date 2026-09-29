@@ -1,7 +1,8 @@
 package com.manacommunity.api.booking.entity;
 
-import com.manacommunity.api.model.Community;
-import com.manacommunity.api.user.model.AppUser;
+import com.manacommunity.common.enums.*;
+import com.manacommunity.common.model.Community;
+import com.manacommunity.common.user.model.AppUser;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -71,3 +72,5 @@ public class ResourceCategory {
 
     public enum CategoryStatus { ACTIVE, INACTIVE }
 }
+
+

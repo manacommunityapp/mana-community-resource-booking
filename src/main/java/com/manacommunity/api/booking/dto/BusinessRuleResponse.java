@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.dto;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.enums.RuleType;
 import lombok.Builder;
 import lombok.Data;
@@ -21,3 +22,4 @@ public class BusinessRuleResponse {
     private String validFrom;
     private String validTo;
 }
+

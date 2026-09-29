@@ -1,5 +1,6 @@
 package com.manacommunity.api.exception;
 
+import com.manacommunity.common.enums.*;
 import org.springframework.http.HttpStatus;
 
 /** Thrown when an auction operation is invalid for the current auction state. */
@@ -9,3 +10,4 @@ public class AuctionStateException extends ManaCommunityException {
         super(message, HttpStatus.CONFLICT, "AUCTION_STATE_ERROR");
     }
 }
+

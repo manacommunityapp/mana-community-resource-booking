@@ -1,5 +1,7 @@
 package com.manacommunity.api.repository;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.api.model.*;
 import com.manacommunity.api.model.MaintenanceRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -10,3 +12,5 @@ import java.util.List;
 public interface MaintenanceRecordRepository extends JpaRepository<MaintenanceRecord, Long> {
     List<MaintenanceRecord> findByAssetIdOrderByMaintenanceDateDesc(Long assetId);
 }
+
+

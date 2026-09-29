@@ -1,5 +1,7 @@
 package com.manacommunity.api.constants;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.common.model.Community;
 import java.util.List;
 
 public final class ModuleConstants {
@@ -24,3 +26,5 @@ public final class ModuleConstants {
         new ModuleDef("ADMIN_HUB",       "Admin Hub",        13)
     );
 }
+
+

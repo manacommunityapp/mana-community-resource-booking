@@ -1,5 +1,6 @@
 package com.manacommunity.api.exception;
 
+import com.manacommunity.common.enums.*;
 import org.springframework.http.HttpStatus;
 
 /** Thrown when a user tries to register for an event that is not open for registration. */
@@ -11,3 +12,4 @@ public class RegistrationClosedException extends ManaCommunityException {
                 HttpStatus.BAD_REQUEST, "REGISTRATION_CLOSED");
     }
 }
+

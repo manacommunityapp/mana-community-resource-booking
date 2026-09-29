@@ -1,5 +1,6 @@
 package com.manacommunity.api.model;
 
+import com.manacommunity.common.enums.*;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -51,3 +52,4 @@ public class InventoryLot {
 
     @PrePersist void onCreate() { createdAt = LocalDateTime.now(); }
 }
+

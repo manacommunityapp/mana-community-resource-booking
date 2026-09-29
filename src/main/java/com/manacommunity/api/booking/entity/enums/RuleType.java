@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.entity.enums;
 
+import com.manacommunity.common.enums.*;
 public enum RuleType {
     MAX_BOOKINGS,
     MEMBERS_ONLY,
@@ -16,3 +17,4 @@ public enum RuleType {
     TIME_RESTRICTION,
     CAPACITY_LIMIT
 }
+

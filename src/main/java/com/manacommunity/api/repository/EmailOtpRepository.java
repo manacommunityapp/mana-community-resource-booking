@@ -1,5 +1,7 @@
 package com.manacommunity.api.repository;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.api.model.*;
 import com.manacommunity.api.model.EmailOtp;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -17,3 +19,5 @@ public interface EmailOtpRepository extends JpaRepository<EmailOtp, Long> {
     /** Whether the email was verified within the allowed window (registration gate). */
     boolean existsByEmailAndVerifiedTrueAndVerifiedAtAfter(String email, LocalDateTime since);
 }
+
+

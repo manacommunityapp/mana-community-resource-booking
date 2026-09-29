@@ -1,7 +1,8 @@
 package com.manacommunity.api.booking.entity;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.enums.DiscountType;
-import com.manacommunity.api.model.Community;
+import com.manacommunity.common.model.Community;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -80,3 +81,5 @@ public class Coupon {
         updatedAt = LocalDateTime.now();
     }
 }
+
+

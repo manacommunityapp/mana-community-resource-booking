@@ -1,5 +1,6 @@
 package com.manacommunity.api.model;
 
+import com.manacommunity.common.enums.*;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
@@ -57,3 +58,4 @@ public class InventoryStockQuant {
     @PrePersist void onCreate() { updatedAt = LocalDateTime.now(); }
     @PreUpdate  void onUpdate() { updatedAt = LocalDateTime.now(); }
 }
+

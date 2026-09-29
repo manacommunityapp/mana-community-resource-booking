@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.repository;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.PricingRule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,3 +14,4 @@ public interface PricingRuleRepository extends JpaRepository<PricingRule, Long> 
 
     List<PricingRule> findByCommunityIdAndIsActiveTrueOrderByPricingTypeAsc(Long communityId);
 }
+

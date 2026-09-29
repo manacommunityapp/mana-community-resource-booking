@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.entity.enums;
 
+import com.manacommunity.common.enums.*;
 public enum PricingType {
     BASE_HOURLY,
     WEEKEND,
@@ -12,3 +13,4 @@ public enum PricingType {
     LATE_CHARGE,
     TAX
 }
+

@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.repository;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.ResourceSchedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,3 +14,4 @@ public interface ResourceScheduleRepository extends JpaRepository<ResourceSchedu
 
     Optional<ResourceSchedule> findByResourceIdAndDayOfWeek(Long resourceId, DayOfWeek dayOfWeek);
 }
+

@@ -1,5 +1,7 @@
 package com.manacommunity.api.repository;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.api.model.*;
 import com.manacommunity.api.model.ChatMessage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,3 +30,5 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> 
                      @Param("since") LocalDateTime since,
                      @Param("userId") Long userId);
 }
+
+

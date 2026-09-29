@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.dto;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.enums.MaintenanceStatus;
 import com.manacommunity.api.booking.entity.enums.MaintenanceType;
 import lombok.Builder;
@@ -26,3 +27,4 @@ public class MaintenanceResponse {
     private Boolean isRecurring;
     private String createdAt;
 }
+

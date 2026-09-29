@@ -1,5 +1,7 @@
 package com.manacommunity.api.repository;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.api.model.*;
 import com.manacommunity.api.model.CommunityBranding;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,3 +11,7 @@ public interface CommunityBrandingRepository extends JpaRepository<CommunityBran
 
     Optional<CommunityBranding> findByCommunity_Id(Long communityId);
 }
+
+
+
+

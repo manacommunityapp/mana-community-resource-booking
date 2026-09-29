@@ -1,5 +1,6 @@
 package com.manacommunity.api.exception;
 
+import com.manacommunity.common.enums.*;
 import org.springframework.http.HttpStatus;
 
 /** Thrown when the maximum participant limit for an event has been reached. */
@@ -11,3 +12,4 @@ public class EventFullException extends ManaCommunityException {
                 HttpStatus.CONFLICT, "EVENT_FULL");
     }
 }
+

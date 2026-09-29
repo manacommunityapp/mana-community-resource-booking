@@ -1,5 +1,8 @@
 package com.manacommunity.api.repository;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.api.model.*;
+import com.manacommunity.common.model.Community;
 import com.manacommunity.api.model.CommunityLeader;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -52,3 +55,8 @@ public interface CommunityLeaderRepository extends JpaRepository<CommunityLeader
 
     List<CommunityLeader> findByUserIdAndIsActiveTrue(Long userId);
 }
+
+
+
+
+

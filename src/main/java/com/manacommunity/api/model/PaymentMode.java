@@ -1,5 +1,6 @@
 package com.manacommunity.api.model;
 
+import com.manacommunity.common.enums.*;
 public enum PaymentMode {
     CASH,
     UPI,
@@ -8,3 +9,4 @@ public enum PaymentMode {
     RTGS,
     CREDIT_CARD
 }
+

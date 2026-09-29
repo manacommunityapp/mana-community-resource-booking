@@ -1,6 +1,7 @@
 package com.manacommunity.api.model;
 
-import com.manacommunity.api.user.model.AppUser;
+import com.manacommunity.common.enums.*;
+import com.manacommunity.common.user.model.AppUser;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -38,3 +39,5 @@ public class PollVote {
         createdAt = LocalDateTime.now();
     }
 }
+
+

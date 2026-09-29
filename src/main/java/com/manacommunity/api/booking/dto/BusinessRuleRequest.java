@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.dto;
 
+import com.manacommunity.common.enums.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -25,3 +26,4 @@ public class BusinessRuleRequest {
     private String validFrom;
     private String validTo;
 }
+

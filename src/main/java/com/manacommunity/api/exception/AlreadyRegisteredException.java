@@ -1,5 +1,6 @@
 package com.manacommunity.api.exception;
 
+import com.manacommunity.common.enums.*;
 import org.springframework.http.HttpStatus;
 
 /** Thrown when a user is already registered for an event. */
@@ -10,3 +11,4 @@ public class AlreadyRegisteredException extends ManaCommunityException {
                 HttpStatus.CONFLICT, "ALREADY_REGISTERED");
     }
 }
+

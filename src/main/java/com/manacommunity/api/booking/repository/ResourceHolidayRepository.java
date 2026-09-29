@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.repository;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.ResourceHoliday;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -14,3 +15,4 @@ public interface ResourceHolidayRepository extends JpaRepository<ResourceHoliday
 
     boolean existsByResourceIdAndHolidayDate(Long resourceId, LocalDate date);
 }
+

@@ -1,5 +1,6 @@
 package com.manacommunity.api.model;
 
+import com.manacommunity.common.enums.*;
 public enum ItemStatus {
     AVAILABLE,
     BORROWED,
@@ -7,3 +8,4 @@ public enum ItemStatus {
     LOST,
     DISPOSED
 }
+

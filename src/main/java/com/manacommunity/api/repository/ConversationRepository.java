@@ -1,5 +1,7 @@
 package com.manacommunity.api.repository;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.api.model.*;
 import com.manacommunity.api.model.Conversation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,3 +27,5 @@ public interface ConversationRepository extends JpaRepository<Conversation, Long
             """)
     List<Long> findDirectConversationIds(@Param("userA") Long userA, @Param("userB") Long userB);
 }
+
+

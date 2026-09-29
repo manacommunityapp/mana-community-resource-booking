@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.repository;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.ResourceImage;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,3 +13,4 @@ public interface ResourceImageRepository extends JpaRepository<ResourceImage, Lo
 
     Optional<ResourceImage> findByResourceIdAndIsPrimaryTrue(Long resourceId);
 }
+

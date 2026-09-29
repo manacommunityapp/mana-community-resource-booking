@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.repository;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.ResourceMaintenance;
 import com.manacommunity.api.booking.entity.enums.MaintenanceStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,3 +23,4 @@ public interface ResourceMaintenanceRepository extends JpaRepository<ResourceMai
             @Param("start") LocalDateTime start,
             @Param("end") LocalDateTime end);
 }
+

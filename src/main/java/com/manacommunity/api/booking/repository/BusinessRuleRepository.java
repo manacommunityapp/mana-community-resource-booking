@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.repository;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.BusinessRule;
 import com.manacommunity.api.booking.entity.enums.RuleType;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,3 +17,4 @@ public interface BusinessRuleRepository extends JpaRepository<BusinessRule, Long
 
     List<BusinessRule> findByResourceIdAndRuleTypeAndIsActiveTrue(Long resourceId, RuleType ruleType);
 }
+

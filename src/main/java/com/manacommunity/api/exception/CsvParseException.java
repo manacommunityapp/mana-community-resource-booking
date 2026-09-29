@@ -1,5 +1,6 @@
 package com.manacommunity.api.exception;
 
+import com.manacommunity.common.enums.*;
 import org.springframework.http.HttpStatus;
 
 /** Thrown when a user-uploaded CSV cannot be parsed. */
@@ -9,3 +10,4 @@ public class CsvParseException extends ManaCommunityException {
         super(message, HttpStatus.UNPROCESSABLE_ENTITY, "CSV_PARSE_ERROR", cause);
     }
 }
+

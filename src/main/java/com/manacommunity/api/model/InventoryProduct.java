@@ -1,5 +1,7 @@
 package com.manacommunity.api.model;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.common.model.Community;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
@@ -89,3 +91,5 @@ public class InventoryProduct {
     public enum ProductType { STORABLE, CONSUMABLE, SERVICE }
     public enum TrackingType { NONE, LOT, SERIAL }
 }
+
+

@@ -1,5 +1,6 @@
 package com.manacommunity.api;
 
+import com.manacommunity.common.enums.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,3 +11,4 @@ public class ResourceBookingApplication {
         SpringApplication.run(ResourceBookingApplication.class, args);
     }
 }
+

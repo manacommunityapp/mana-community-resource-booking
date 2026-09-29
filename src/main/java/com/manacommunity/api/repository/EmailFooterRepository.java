@@ -1,5 +1,7 @@
 package com.manacommunity.api.repository;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.api.model.*;
 import com.manacommunity.api.model.EmailFooter;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -16,3 +18,5 @@ public interface EmailFooterRepository extends JpaRepository<EmailFooter, Long> 
 
     Optional<EmailFooter> findByCommunity_IdAndName(Long communityId, String name);
 }
+
+

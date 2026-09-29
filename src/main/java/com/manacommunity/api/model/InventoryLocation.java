@@ -1,5 +1,6 @@
 package com.manacommunity.api.model;
 
+import com.manacommunity.common.enums.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -54,3 +55,4 @@ public class InventoryLocation {
         VIEW, INTERNAL, CUSTOMER, VENDOR, INVENTORY, PRODUCTION, TRANSIT, SCRAP
     }
 }
+

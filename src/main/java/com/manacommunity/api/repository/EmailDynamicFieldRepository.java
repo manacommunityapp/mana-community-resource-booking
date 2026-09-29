@@ -1,5 +1,7 @@
 package com.manacommunity.api.repository;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.api.model.*;
 import com.manacommunity.api.model.EmailDynamicField;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,3 +14,5 @@ public interface EmailDynamicFieldRepository extends JpaRepository<EmailDynamicF
 
     Optional<EmailDynamicField> findByFieldKey(String fieldKey);
 }
+
+

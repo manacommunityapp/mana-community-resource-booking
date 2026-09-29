@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.dto;
 
+import com.manacommunity.common.enums.*;
 import lombok.Builder;
 import lombok.Data;
 
@@ -19,3 +20,4 @@ public class DashboardStatsResponse {
     private double cancellationRate;
     private List<ResourceBookingResponse> recentBookings;
 }
+

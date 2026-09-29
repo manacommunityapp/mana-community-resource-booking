@@ -1,12 +1,13 @@
 package com.manacommunity.api.booking.service;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.dto.ResourceCategoryRequest;
 import com.manacommunity.api.booking.dto.ResourceCategoryResponse;
 import com.manacommunity.api.booking.entity.ResourceCategory;
 import com.manacommunity.api.booking.repository.ResourceCategoryRepository;
 import com.manacommunity.api.booking.repository.ResourceRepository;
-import com.manacommunity.api.model.Community;
-import com.manacommunity.api.user.model.AppUser;
+import com.manacommunity.common.model.Community;
+import com.manacommunity.common.user.model.AppUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -106,3 +107,5 @@ public class ResourceCategoryService {
         }
     }
 }
+
+

@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.entity;
 
+import com.manacommunity.common.enums.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -56,3 +57,4 @@ public class ResourceSchedule {
         updatedAt = LocalDateTime.now();
     }
 }
+

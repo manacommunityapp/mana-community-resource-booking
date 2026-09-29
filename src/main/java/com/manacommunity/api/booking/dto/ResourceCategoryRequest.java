@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.dto;
 
+import com.manacommunity.common.enums.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -16,3 +17,4 @@ public class ResourceCategoryRequest {
     private String status;
     private String imageUrl;
 }
+

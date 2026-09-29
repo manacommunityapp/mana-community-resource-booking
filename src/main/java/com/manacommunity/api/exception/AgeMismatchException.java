@@ -1,5 +1,6 @@
 package com.manacommunity.api.exception;
 
+import com.manacommunity.common.enums.*;
 import org.springframework.http.HttpStatus;
 
 /** Thrown when a user's age does not meet the sport's or category's age requirements. */
@@ -11,3 +12,4 @@ public class AgeMismatchException extends ManaCommunityException {
                 HttpStatus.BAD_REQUEST, "AGE_MISMATCH");
     }
 }
+

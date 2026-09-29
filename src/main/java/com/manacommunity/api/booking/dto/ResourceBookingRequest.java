@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.dto;
 
+import com.manacommunity.common.enums.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -26,3 +27,4 @@ public class ResourceBookingRequest {
     private List<Long> equipmentIds;
     private String couponCode;
 }
+

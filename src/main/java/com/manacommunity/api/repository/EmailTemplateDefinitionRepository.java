@@ -1,7 +1,9 @@
 package com.manacommunity.api.repository;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.api.model.*;
 import com.manacommunity.api.model.EmailTemplateDefinition;
-import com.manacommunity.api.model.EmailTemplateStatus;
+import com.manacommunity.common.enums.EmailTemplateStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -23,3 +25,6 @@ public interface EmailTemplateDefinitionRepository extends JpaRepository<EmailTe
             EmailTemplateStatus status
     );
 }
+
+
+

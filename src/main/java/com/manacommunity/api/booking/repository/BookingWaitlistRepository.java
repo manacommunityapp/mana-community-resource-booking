@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.repository;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.BookingWaitlist;
 import com.manacommunity.api.booking.entity.enums.WaitlistStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,3 +17,4 @@ public interface BookingWaitlistRepository extends JpaRepository<BookingWaitlist
 
     long countByResourceIdAndRequestedDateAndStatus(Long resourceId, LocalDate date, WaitlistStatus status);
 }
+

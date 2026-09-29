@@ -1,11 +1,12 @@
 package com.manacommunity.api.booking.service;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.dto.CouponRequest;
 import com.manacommunity.api.booking.dto.CouponResponse;
 import com.manacommunity.api.booking.entity.Coupon;
 import com.manacommunity.api.booking.entity.enums.DiscountType;
 import com.manacommunity.api.booking.repository.CouponRepository;
-import com.manacommunity.api.model.Community;
+import com.manacommunity.common.model.Community;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,3 +84,5 @@ public class CouponService {
                 .build();
     }
 }
+
+

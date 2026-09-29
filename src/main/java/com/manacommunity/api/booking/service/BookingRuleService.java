@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.service;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.dto.*;
 import com.manacommunity.api.booking.entity.ApprovalWorkflow;
 import com.manacommunity.api.booking.entity.BusinessRule;
@@ -14,7 +15,7 @@ import com.manacommunity.api.booking.repository.BusinessRuleRepository;
 import com.manacommunity.api.booking.repository.PricingRuleRepository;
 import com.manacommunity.api.booking.repository.ResourceCategoryRepository;
 import com.manacommunity.api.booking.repository.ResourceRepository;
-import com.manacommunity.api.model.Community;
+import com.manacommunity.common.model.Community;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -226,3 +227,5 @@ public class BookingRuleService {
                 .build();
     }
 }
+
+

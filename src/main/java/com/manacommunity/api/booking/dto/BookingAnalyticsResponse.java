@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.dto;
 
+import com.manacommunity.common.enums.*;
 import lombok.Builder;
 import lombok.Data;
 
@@ -23,3 +24,4 @@ public class BookingAnalyticsResponse {
     private String peakHourStart;
     private String peakHourEnd;
 }
+

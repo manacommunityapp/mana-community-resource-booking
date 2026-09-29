@@ -1,5 +1,7 @@
 package com.manacommunity.api.model;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.common.model.Community;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -63,3 +65,5 @@ public class InventoryWarehouse {
 
     public enum StepType { ONE_STEP, TWO_STEPS, THREE_STEPS }
 }
+
+

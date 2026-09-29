@@ -1,6 +1,9 @@
 package com.manacommunity.api.repository;
 
-import com.manacommunity.api.model.CommunityModule;
+import com.manacommunity.common.enums.*;
+import com.manacommunity.api.model.*;
+import com.manacommunity.common.model.Community;
+import com.manacommunity.common.model.CommunityModule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -34,3 +37,7 @@ public interface CommunityModuleRepository extends JpaRepository<CommunityModule
     """)
     boolean isModuleEnabled(@Param("communityId") Long communityId, @Param("moduleKey") String moduleKey);
 }
+
+
+
+

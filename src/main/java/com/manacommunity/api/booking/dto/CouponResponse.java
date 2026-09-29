@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.dto;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.enums.DiscountType;
 import lombok.Builder;
 import lombok.Data;
@@ -23,3 +24,4 @@ public class CouponResponse {
     private BigDecimal maxDiscountAmount;
     private Boolean isActive;
 }
+

@@ -1,5 +1,6 @@
 package com.manacommunity.api.model;
 
+import com.manacommunity.common.enums.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -116,3 +117,4 @@ public class InventoryItem {
         updatedAt = LocalDateTime.now();
     }
 }
+

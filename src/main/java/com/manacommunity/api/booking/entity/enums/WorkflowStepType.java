@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.entity.enums;
 
+import com.manacommunity.common.enums.*;
 public enum WorkflowStepType {
     AUTO_CONFIRM,
     PAYMENT,
@@ -9,3 +10,4 @@ public enum WorkflowStepType {
     DEPOSIT,
     DOCUMENT_VERIFICATION
 }
+

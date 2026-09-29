@@ -1,5 +1,7 @@
 package com.manacommunity.api.booking.repository;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.common.model.Community;
 import com.manacommunity.api.booking.entity.ResourceBooking;
 import com.manacommunity.api.booking.entity.enums.BookingStatus;
 import org.springframework.data.domain.Page;
@@ -60,3 +62,5 @@ public interface ResourceBookingRepository extends JpaRepository<ResourceBooking
     Page<ResourceBooking> findByCommunityIdAndStatusIn(
             Long communityId, List<BookingStatus> statuses, Pageable pageable);
 }
+
+

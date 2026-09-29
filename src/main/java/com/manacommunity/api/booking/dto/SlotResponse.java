@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.dto;
 
+import com.manacommunity.common.enums.*;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,3 +14,4 @@ public class SlotResponse {
     private Long bookingId;
     private String bookedByName;
 }
+

@@ -1,5 +1,7 @@
 package com.manacommunity.api.model;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.common.model.Community;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -59,3 +61,5 @@ public class Conversation {
         updatedAt = LocalDateTime.now();
     }
 }
+
+

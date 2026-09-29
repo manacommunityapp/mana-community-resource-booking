@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.repository;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.BookingApproval;
 import com.manacommunity.api.booking.entity.enums.ApprovalStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,3 +14,4 @@ public interface BookingApprovalRepository extends JpaRepository<BookingApproval
 
     Optional<BookingApproval> findByBookingIdAndStatus(Long bookingId, ApprovalStatus status);
 }
+

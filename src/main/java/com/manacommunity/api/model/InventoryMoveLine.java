@@ -1,5 +1,6 @@
 package com.manacommunity.api.model;
 
+import com.manacommunity.common.enums.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -57,3 +58,4 @@ public class InventoryMoveLine {
 
     @PrePersist void onCreate() { createdAt = LocalDateTime.now(); }
 }
+

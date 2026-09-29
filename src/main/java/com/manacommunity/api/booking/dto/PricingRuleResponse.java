@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.dto;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.enums.PricingType;
 import lombok.Builder;
 import lombok.Data;
@@ -24,3 +25,4 @@ public class PricingRuleResponse {
     private String startTime;
     private String endTime;
 }
+

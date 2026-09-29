@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.repository;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.Resource;
 import com.manacommunity.api.booking.entity.enums.ResourceStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,3 +22,4 @@ public interface ResourceRepository extends JpaRepository<Resource, Long>, JpaSp
 
     long countByCommunityIdAndDeletedFalse(Long communityId);
 }
+

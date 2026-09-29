@@ -1,5 +1,7 @@
 package com.manacommunity.api.user.repository;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.common.model.Community;
 import com.manacommunity.api.user.model.MenuItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,3 +29,5 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
     """)
     List<MenuItem> findActiveRootsByCommunity(@Param("communityId") Long communityId);
 }
+
+

@@ -1,5 +1,7 @@
 package com.manacommunity.api.model;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.common.model.Community;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -43,3 +45,5 @@ public class InventoryCategory {
     @PrePersist void onCreate() { createdAt = updatedAt = LocalDateTime.now(); }
     @PreUpdate  void onUpdate() { updatedAt = LocalDateTime.now(); }
 }
+
+

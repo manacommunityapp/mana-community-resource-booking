@@ -1,5 +1,7 @@
 package com.manacommunity.api.repository;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.api.model.*;
 import com.manacommunity.api.model.EmailTemplateVersion;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,3 +11,5 @@ public interface EmailTemplateVersionRepository extends JpaRepository<EmailTempl
 
     List<EmailTemplateVersion> findByTemplate_IdOrderByVersionDesc(Long templateId);
 }
+
+

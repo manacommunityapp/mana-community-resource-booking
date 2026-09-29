@@ -1,9 +1,10 @@
 package com.manacommunity.api.booking.entity;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.enums.BookingType;
 import com.manacommunity.api.booking.entity.enums.ResourceStatus;
-import com.manacommunity.api.model.Community;
-import com.manacommunity.api.user.model.AppUser;
+import com.manacommunity.common.model.Community;
+import com.manacommunity.common.user.model.AppUser;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -161,3 +162,5 @@ public class Resource {
         updatedAt = LocalDateTime.now();
     }
 }
+
+

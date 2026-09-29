@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.entity;
 
+import com.manacommunity.common.enums.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -41,3 +42,4 @@ public class ResourceImage {
         createdAt = LocalDateTime.now();
     }
 }
+

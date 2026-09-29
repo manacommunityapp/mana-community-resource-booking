@@ -1,7 +1,8 @@
 package com.manacommunity.api.booking.entity;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.enums.RuleType;
-import com.manacommunity.api.model.Community;
+import com.manacommunity.common.model.Community;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -83,3 +84,5 @@ public class BusinessRule {
         updatedAt = LocalDateTime.now();
     }
 }
+
+

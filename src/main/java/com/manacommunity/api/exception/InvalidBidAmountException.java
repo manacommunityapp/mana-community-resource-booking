@@ -1,5 +1,6 @@
 package com.manacommunity.api.exception;
 
+import com.manacommunity.common.enums.*;
 import org.springframework.http.HttpStatus;
 
 /** Thrown when a bid amount is below the required minimum next bid. */
@@ -11,3 +12,4 @@ public class InvalidBidAmountException extends ManaCommunityException {
                 HttpStatus.BAD_REQUEST, "INVALID_BID_AMOUNT");
     }
 }
+

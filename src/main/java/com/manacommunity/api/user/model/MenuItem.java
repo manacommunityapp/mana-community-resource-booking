@@ -1,8 +1,9 @@
 package com.manacommunity.api.user.model;
 
+import com.manacommunity.common.enums.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.manacommunity.api.model.Community;
+import com.manacommunity.common.model.Community;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -79,3 +80,5 @@ public class MenuItem {
         updatedAt = LocalDateTime.now();
     }
 }
+
+

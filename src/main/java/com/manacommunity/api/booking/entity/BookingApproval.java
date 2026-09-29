@@ -1,6 +1,7 @@
 package com.manacommunity.api.booking.entity;
 
-import com.manacommunity.api.user.model.AppUser;
+import com.manacommunity.common.enums.*;
+import com.manacommunity.common.user.model.AppUser;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -54,3 +55,5 @@ public class BookingApproval {
 
     public enum ApprovalStepStatus { PENDING, APPROVED, REJECTED, SKIPPED, TIMED_OUT }
 }
+
+

@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.dto;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.enums.WorkflowStepType;
 import lombok.Builder;
 import lombok.Data;
@@ -20,3 +21,4 @@ public class ApprovalWorkflowResponse {
     private Integer timeoutHours;
     private Boolean isActive;
 }
+

@@ -1,5 +1,8 @@
 package com.manacommunity.api.repository;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.api.model.*;
+import com.manacommunity.common.model.Community;
 import com.manacommunity.api.model.Notification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -87,3 +90,6 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
     @Query("UPDATE Notification n SET n.dismissed = true WHERE n.expiresAt IS NOT NULL AND n.expiresAt < :now AND n.dismissed = false")
     int dismissExpired(@Param("now") LocalDateTime now);
 }
+
+
+

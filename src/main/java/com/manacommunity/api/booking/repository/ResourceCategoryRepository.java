@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.repository;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.entity.ResourceCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,3 +12,4 @@ public interface ResourceCategoryRepository extends JpaRepository<ResourceCatego
 
     List<ResourceCategory> findByCommunityIdOrderByDisplayOrderAsc(Long communityId);
 }
+

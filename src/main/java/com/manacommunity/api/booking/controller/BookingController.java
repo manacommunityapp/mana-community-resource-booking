@@ -1,10 +1,11 @@
 package com.manacommunity.api.booking.controller;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.dto.*;
 import com.manacommunity.api.booking.entity.enums.BookingStatus;
 import com.manacommunity.api.booking.service.*;
-import com.manacommunity.api.user.model.AppUser;
-import com.manacommunity.api.user.security.UserPrincipal;
+import com.manacommunity.common.user.model.AppUser;
+import com.manacommunity.common.user.security.UserPrincipal;
 import com.manacommunity.api.user.service.LoggedInUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -493,3 +494,5 @@ public class BookingController {
                 LocalDate.parse(from), LocalDate.parse(to)));
     }
 }
+
+

@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.dto;
 
+import com.manacommunity.common.enums.*;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,3 +19,4 @@ public class ResourceCategoryResponse {
     private Long resourceCount;
     private Long communityId;
 }
+

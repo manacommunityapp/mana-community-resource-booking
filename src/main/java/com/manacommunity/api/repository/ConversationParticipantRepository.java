@@ -1,5 +1,7 @@
 package com.manacommunity.api.repository;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.api.model.*;
 import com.manacommunity.api.model.ConversationParticipant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -19,3 +21,5 @@ public interface ConversationParticipantRepository extends JpaRepository<Convers
     /** Everyone in a conversation (used to resolve the "other" party for DIRECT chats). */
     List<ConversationParticipant> findByConversationId(Long conversationId);
 }
+
+

@@ -1,14 +1,16 @@
 package com.manacommunity.api.booking.service;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.dto.EquipmentResponse;
 import com.manacommunity.api.booking.dto.ResourceBookingRequest;
 import com.manacommunity.api.booking.dto.ResourceBookingResponse;
 import com.manacommunity.api.booking.dto.SlotResponse;
 import com.manacommunity.api.booking.entity.*;
 import com.manacommunity.api.booking.entity.enums.*;
+import com.manacommunity.api.booking.entity.enums.PaymentStatus;
 import com.manacommunity.api.booking.repository.*;
-import com.manacommunity.api.model.Community;
-import com.manacommunity.api.user.model.AppUser;
+import com.manacommunity.common.model.Community;
+import com.manacommunity.common.user.model.AppUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -711,3 +713,5 @@ public class ResourceBookingService {
         return dt != null ? dt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null;
     }
 }
+
+

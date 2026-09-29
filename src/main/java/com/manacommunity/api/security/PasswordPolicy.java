@@ -1,5 +1,7 @@
 package com.manacommunity.api.security;
 
+import com.manacommunity.common.enums.*;
+import com.manacommunity.common.model.Community;
 import com.manacommunity.api.exception.ManaCommunityException;
 import org.springframework.http.HttpStatus;
 
@@ -89,3 +91,5 @@ public final class PasswordPolicy {
         return new ManaCommunityException(message, HttpStatus.BAD_REQUEST, "WEAK_PASSWORD");
     }
 }
+
+

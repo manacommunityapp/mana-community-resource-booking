@@ -1,5 +1,6 @@
 package com.manacommunity.api.exception;
 
+import com.manacommunity.common.enums.*;
 import org.springframework.http.HttpStatus;
 
 /** Thrown when an auction team does not have enough budget to place a bid. */
@@ -11,3 +12,4 @@ public class InsufficientBudgetException extends ManaCommunityException {
                 HttpStatus.BAD_REQUEST, "INSUFFICIENT_BUDGET");
     }
 }
+

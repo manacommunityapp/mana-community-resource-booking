@@ -1,5 +1,6 @@
 package com.manacommunity.api.booking.service;
 
+import com.manacommunity.common.enums.*;
 import com.manacommunity.api.booking.dto.ResourceRequest;
 import com.manacommunity.api.booking.dto.ResourceResponse;
 import com.manacommunity.api.booking.entity.Resource;
@@ -10,8 +11,8 @@ import com.manacommunity.api.booking.entity.enums.ResourceStatus;
 import com.manacommunity.api.booking.repository.ResourceCategoryRepository;
 import com.manacommunity.api.booking.repository.ResourceImageRepository;
 import com.manacommunity.api.booking.repository.ResourceRepository;
-import com.manacommunity.api.model.Community;
-import com.manacommunity.api.user.model.AppUser;
+import com.manacommunity.common.model.Community;
+import com.manacommunity.common.user.model.AppUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -222,3 +223,5 @@ public class ResourceService {
         }
     }
 }
+
+

@@ -1,5 +1,6 @@
 package com.manacommunity.api.exception;
 
+import com.manacommunity.common.enums.*;
 import org.springframework.http.HttpStatus;
 
 /** Thrown when field-level PII encryption or decryption fails. */
@@ -13,3 +14,4 @@ public class EncryptionException extends ManaCommunityException {
         super(message, HttpStatus.INTERNAL_SERVER_ERROR, "ENCRYPTION_ERROR", cause);
     }
 }
+
