@@ -26,5 +26,9 @@ public class ResourceBookingRequest {
     private Integer numberOfGuests;
     private List<Long> equipmentIds;
     private String couponCode;
-}
 
+    // Recurring booking support
+    private Boolean isRecurring;
+    private Integer recurringOccurrences;
+    private String recurringFrequency; // "DAILY" or "WEEKLY"
+}

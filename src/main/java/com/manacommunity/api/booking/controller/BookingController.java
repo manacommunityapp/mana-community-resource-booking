@@ -282,6 +282,26 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.rateBooking(id, user.getId(), rating, comment));
     }
 
+    @PutMapping("/bookings/{id}/no-show")
+    @PreAuthorize("hasAuthority('Manage Resources')")
+    public ResponseEntity<ResourceBookingResponse> markNoShow(
+            @PathVariable Long id,
+            @RequestBody(required = false) Map<String, Object> body,
+            @AuthenticationPrincipal UserPrincipal principal) {
+        loggedInUserService.resolve(principal);
+        java.math.BigDecimal penaltyAmount = null;
+        String reason = null;
+        if (body != null) {
+            if (body.get("penaltyAmount") != null) {
+                penaltyAmount = new java.math.BigDecimal(body.get("penaltyAmount").toString());
+            }
+            if (body.get("reason") != null) {
+                reason = body.get("reason").toString();
+            }
+        }
+        return ResponseEntity.ok(bookingService.markNoShow(id, penaltyAmount, reason));
+    }
+
     // ── Waitlist ─────────────────────────────────────────────────
 
     @PostMapping("/waitlist")

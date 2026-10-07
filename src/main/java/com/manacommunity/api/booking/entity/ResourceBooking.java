@@ -107,6 +107,15 @@ public class ResourceBooking {
     @Column(name = "discount_amount", precision = 12, scale = 2)
     private BigDecimal discountAmount;
 
+    @Column(name = "refund_amount", precision = 12, scale = 2)
+    private BigDecimal refundAmount;
+
+    @Column(name = "refund_percentage", precision = 5, scale = 2)
+    private BigDecimal refundPercentage;
+
+    @Column(name = "penalty_amount", precision = 12, scale = 2)
+    private BigDecimal penaltyAmount;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_status", length = 25)
     @Builder.Default
@@ -155,5 +164,3 @@ public class ResourceBooking {
         updatedAt = LocalDateTime.now();
     }
 }
-
-

@@ -12,6 +12,7 @@ import com.manacommunity.api.booking.repository.*;
 import com.manacommunity.common.model.Community;
 import com.manacommunity.common.user.model.AppUser;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ResourceBookingService {
@@ -67,6 +70,14 @@ public class ResourceBookingService {
 
         if (!endTime.isAfter(startTime) && endDate == null) {
             throw new IllegalArgumentException("End time must be after start time");
+        }
+
+        // Validate advance booking window
+        if (resource.getAdvanceBookingDays() != null && resource.getAdvanceBookingDays() > 0) {
+            LocalDate maxDate = LocalDate.now().plusDays(resource.getAdvanceBookingDays());
+            if (bookingDate.isAfter(maxDate)) {
+                throw new IllegalStateException("Bookings can only be made up to " + resource.getAdvanceBookingDays() + " days in advance");
+            }
         }
 
         // 3. Validate business rules
@@ -188,8 +199,61 @@ public class ResourceBookingService {
             });
         }
 
+        // Handle recurring occurrences if requested
+        if (Boolean.TRUE.equals(req.getIsRecurring()) && resource.isRecurringBookingAllowed()
+                && req.getRecurringOccurrences() != null && req.getRecurringOccurrences() > 1) {
+            createRecurringOccurrences(booking, req, user, community, resource);
+        }
+
         // 12. Return response
         return toResponse(booking);
+    }
+
+    private void createRecurringOccurrences(ResourceBooking parentBooking, ResourceBookingRequest req,
+                                            AppUser user, Community community, Resource resource) {
+        parentBooking.setRecurring(true);
+        parentBooking.setRecurringPattern(req.getRecurringFrequency() != null ? req.getRecurringFrequency() : "WEEKLY");
+        bookingRepo.save(parentBooking);
+
+        int occurrences = req.getRecurringOccurrences();
+        LocalDate baseDate = LocalDate.parse(req.getBookingDate());
+        LocalTime startTime = LocalTime.parse(req.getStartTime());
+        LocalTime endTime = LocalTime.parse(req.getEndTime());
+        boolean isWeekly = !"DAILY".equalsIgnoreCase(req.getRecurringFrequency());
+
+        for (int i = 1; i < occurrences; i++) {
+            LocalDate occurrenceDate = isWeekly ? baseDate.plusWeeks(i) : baseDate.plusDays(i);
+
+            // Skip conflict or holiday for occurrence, logging warning
+            List<ResourceBooking> conflicts = bookingRepo.findConflicting(resource.getId(), occurrenceDate, startTime, endTime);
+            if (!conflicts.isEmpty() || holidayRepo.existsByResourceIdAndHolidayDate(resource.getId(), occurrenceDate)) {
+                log.warn("Skipping recurring occurrence for date {} due to conflict/holiday", occurrenceDate);
+                continue;
+            }
+
+            ResourceBooking occurrence = ResourceBooking.builder()
+                    .bookingNumber(generateBookingNumber())
+                    .resource(resource)
+                    .bookedBy(user)
+                    .bookingDate(occurrenceDate)
+                    .startTime(startTime)
+                    .endTime(endTime)
+                    .purpose(req.getPurpose())
+                    .numberOfGuests(req.getNumberOfGuests())
+                    .status(parentBooking.getStatus())
+                    .approvalStatus(parentBooking.getApprovalStatus())
+                    .totalAmount(parentBooking.getTotalAmount())
+                    .taxAmount(parentBooking.getTaxAmount())
+                    .discountAmount(parentBooking.getDiscountAmount())
+                    .paymentStatus(parentBooking.getPaymentStatus())
+                    .community(community)
+                    .isRecurring(true)
+                    .parentBookingId(parentBooking.getId())
+                    .recurringPattern(parentBooking.getRecurringPattern())
+                    .build();
+
+            bookingRepo.save(occurrence);
+        }
     }
 
     // ── Query Methods ──────────────────────────────────────────────
@@ -229,7 +293,7 @@ public class ResourceBookingService {
         return toResponse(booking);
     }
 
-    // ── Cancel ─────────────────────────────────────────────────────
+    // ── Cancel & Tiered Refund ──────────────────────────────────────
 
     @Transactional
     public ResourceBookingResponse cancelBooking(Long id, Long userId, String reason) {
@@ -248,9 +312,9 @@ public class ResourceBookingService {
             throw new IllegalStateException("Cannot cancel a booking that is already checked in");
         }
 
-        booking.setStatus(BookingStatus.CANCELLED);
-        booking.setCancellationReason(reason);
-        booking.setCancelledAt(LocalDateTime.now());
+        applyCancellationAndRefund(booking, reason);
+        autoPromoteWaitlistCandidate(booking);
+
         return toResponse(bookingRepo.save(booking));
     }
 
@@ -259,9 +323,82 @@ public class ResourceBookingService {
         ResourceBooking booking = bookingRepo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Booking not found: " + id));
 
+        applyCancellationAndRefund(booking, reason);
+        autoPromoteWaitlistCandidate(booking);
+
+        return toResponse(bookingRepo.save(booking));
+    }
+
+    private void applyCancellationAndRefund(ResourceBooking booking, String reason) {
         booking.setStatus(BookingStatus.CANCELLED);
         booking.setCancellationReason(reason);
-        booking.setCancelledAt(LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        booking.setCancelledAt(now);
+
+        LocalDateTime bookingStart = LocalDateTime.of(booking.getBookingDate(), booking.getStartTime());
+        long hoursBeforeStart = Duration.between(now, bookingStart).toHours();
+
+        BigDecimal total = booking.getTotalAmount() != null ? booking.getTotalAmount() : BigDecimal.ZERO;
+
+        if (total.compareTo(BigDecimal.ZERO) > 0 && booking.getPaymentStatus() == PaymentStatus.PAID) {
+            if (hoursBeforeStart >= 24) {
+                // > 24 hours: Full refund
+                booking.setRefundPercentage(new BigDecimal("100.00"));
+                booking.setRefundAmount(total);
+                booking.setPaymentStatus(PaymentStatus.REFUNDED);
+            } else if (hoursBeforeStart >= 2) {
+                // 2 to 24 hours: 50% partial refund
+                booking.setRefundPercentage(new BigDecimal("50.00"));
+                BigDecimal halfRefund = total.multiply(new BigDecimal("0.50")).setScale(2, RoundingMode.HALF_UP);
+                booking.setRefundAmount(halfRefund);
+                booking.setPaymentStatus(PaymentStatus.PARTIALLY_REFUNDED);
+            } else {
+                // < 2 hours: Zero refund
+                booking.setRefundPercentage(BigDecimal.ZERO);
+                booking.setRefundAmount(BigDecimal.ZERO);
+            }
+        } else {
+            booking.setRefundPercentage(BigDecimal.ZERO);
+            booking.setRefundAmount(BigDecimal.ZERO);
+        }
+    }
+
+    private void autoPromoteWaitlistCandidate(ResourceBooking cancelledBooking) {
+        try {
+            List<BookingWaitlist> waitingList = waitlistRepo.findByResourceIdAndRequestedDateAndStatusOrderByPositionAsc(
+                    cancelledBooking.getResource().getId(), cancelledBooking.getBookingDate(), WaitlistStatus.WAITING);
+
+            if (!waitingList.isEmpty()) {
+                BookingWaitlist topCandidate = waitingList.get(0);
+                topCandidate.setStatus(WaitlistStatus.NOTIFIED);
+                topCandidate.setNotifiedAt(LocalDateTime.now());
+                topCandidate.setExpiresAt(LocalDateTime.now().plusHours(2));
+                waitlistRepo.save(topCandidate);
+                log.info("Waitlist candidate {} notified for resource {} date {}",
+                        topCandidate.getUser().getId(), cancelledBooking.getResource().getId(), cancelledBooking.getBookingDate());
+            }
+        } catch (Exception e) {
+            log.warn("Failed to auto-promote waitlist candidate for cancelled booking {}: {}", cancelledBooking.getId(), e.getMessage());
+        }
+    }
+
+    // ── No-Show Penalties ──────────────────────────────────────────
+
+    @Transactional
+    public ResourceBookingResponse markNoShow(Long id, BigDecimal penaltyAmount, String reason) {
+        ResourceBooking booking = bookingRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Booking not found: " + id));
+
+        if (booking.getStatus() == BookingStatus.CANCELLED) {
+            throw new IllegalStateException("Cannot mark a cancelled booking as no-show");
+        }
+
+        booking.setStatus(BookingStatus.NO_SHOW);
+        booking.setPenaltyAmount(penaltyAmount != null ? penaltyAmount : new BigDecimal("100.00"));
+        if (reason != null && !reason.isBlank()) {
+            booking.setCancellationReason(reason);
+        }
+
         return toResponse(bookingRepo.save(booking));
     }
 
@@ -438,16 +575,10 @@ public class ResourceBookingService {
         while (true) {
             LocalTime slotEnd = slotStart.plusMinutes(durationMinutes);
 
-            // Check if slot exceeds close time (handle midnight crossing)
             if (closeTime.isAfter(openTime)) {
-                // Normal case: close time is after open time
                 if (slotEnd.isAfter(closeTime)) break;
             } else {
-                // Midnight crossing: close time is before open time (e.g., 22:00 - 02:00)
-                if (slotStart.isBefore(closeTime) && slotStart.isAfter(openTime)) {
-                    // This shouldn't happen in midnight crossing after wrapping
-                    break;
-                }
+                if (slotStart.isBefore(closeTime) && slotStart.isAfter(openTime)) break;
                 if (slotEnd.isBefore(slotStart) && slotEnd.isAfter(closeTime)) break;
             }
 
@@ -486,8 +617,6 @@ public class ResourceBookingService {
                     .build());
 
             slotStart = slotStart.plusMinutes(slotIncrement);
-
-            // Safety: prevent infinite loop for midnight-crossing schedules
             if (slotStart.equals(openTime)) break;
         }
 
@@ -513,15 +642,13 @@ public class ResourceBookingService {
 
     private BigDecimal calculateTotalAmount(Resource resource, LocalDate bookingDate,
                                             LocalTime startTime, LocalTime endTime, String couponCode) {
-        // Get pricing rules for the resource
         List<PricingRule> rules = pricingRepo.findByResourceIdAndIsActiveTrueOrderByPricingTypeAsc(resource.getId());
 
         BigDecimal baseAmount = BigDecimal.ZERO;
         BigDecimal adjustments = BigDecimal.ZERO;
 
-        // Calculate duration in hours
         long durationMinutes = java.time.Duration.between(startTime, endTime).toMinutes();
-        if (durationMinutes <= 0) durationMinutes = 60; // Fallback
+        if (durationMinutes <= 0) durationMinutes = 60;
         BigDecimal durationHours = BigDecimal.valueOf(durationMinutes).divide(BigDecimal.valueOf(60), 2, RoundingMode.HALF_UP);
 
         for (PricingRule rule : rules) {
@@ -552,7 +679,6 @@ public class ResourceBookingService {
                     }
                     break;
                 default:
-                    // TAX, DISCOUNT, SECURITY_DEPOSIT, etc. handled separately
                     break;
             }
         }
@@ -584,7 +710,6 @@ public class ResourceBookingService {
             discount = coupon.getDiscountValue();
         }
 
-        // Cap at max discount amount
         if (coupon.getMaxDiscountAmount() != null && discount.compareTo(coupon.getMaxDiscountAmount()) > 0) {
             discount = coupon.getMaxDiscountAmount();
         }
@@ -602,7 +727,6 @@ public class ResourceBookingService {
                     try {
                         maxBookings = Integer.parseInt(rule.getRuleValue());
                     } catch (NumberFormatException ignored) {
-                        // Use resource default
                     }
                 }
                 long currentBookings = bookingRepo.countByBookedByIdAndResourceIdAndStatusIn(
@@ -619,7 +743,6 @@ public class ResourceBookingService {
                     try {
                         maxActive = Integer.parseInt(rule.getRuleValue());
                     } catch (NumberFormatException ignored) {
-                        // Use resource default
                     }
                 }
                 long activeBookings = bookingRepo.countByBookedByIdAndStatusIn(user.getId(), ACTIVE_STATUSES);
@@ -630,7 +753,6 @@ public class ResourceBookingService {
             }
         }
 
-        // Also check resource-level limits even without explicit rules
         if (resource.getMaxBookingsPerUser() != null) {
             long currentBookings = bookingRepo.countByBookedByIdAndResourceIdAndStatusIn(
                     user.getId(), resource.getId(), ACTIVE_STATUSES);
@@ -694,9 +816,14 @@ public class ResourceBookingService {
                 .depositAmount(b.getDepositAmount())
                 .taxAmount(b.getTaxAmount())
                 .discountAmount(b.getDiscountAmount())
+                .refundAmount(b.getRefundAmount())
+                .refundPercentage(b.getRefundPercentage())
+                .penaltyAmount(b.getPenaltyAmount())
                 .paymentStatus(b.getPaymentStatus() != null ? b.getPaymentStatus().name() : null)
                 .paymentReference(b.getPaymentReference())
                 .isRecurring(b.isRecurring())
+                .recurringPattern(b.getRecurringPattern())
+                .parentBookingId(b.getParentBookingId())
                 .rating(b.getRating())
                 .ratingComment(b.getRatingComment())
                 .bookedById(b.getBookedBy() != null ? b.getBookedBy().getId() : null)
@@ -713,5 +840,3 @@ public class ResourceBookingService {
         return dt != null ? dt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null;
     }
 }
-
-

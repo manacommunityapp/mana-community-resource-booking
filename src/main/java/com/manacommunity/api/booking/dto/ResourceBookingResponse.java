@@ -31,9 +31,14 @@ public class ResourceBookingResponse {
     private BigDecimal depositAmount;
     private BigDecimal taxAmount;
     private BigDecimal discountAmount;
+    private BigDecimal refundAmount;
+    private BigDecimal refundPercentage;
+    private BigDecimal penaltyAmount;
     private String paymentStatus;
     private String paymentReference;
     private Boolean isRecurring;
+    private String recurringPattern;
+    private Long parentBookingId;
     private Integer rating;
     private String ratingComment;
     private Long bookedById;
@@ -44,4 +49,3 @@ public class ResourceBookingResponse {
     private String createdAt;
     private String updatedAt;
 }
-
